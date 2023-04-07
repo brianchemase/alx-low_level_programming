@@ -1,4 +1,4 @@
-#include <stdlib.h>
+#include <main.h>
 
 typedef struct {
     /* define the structure of a hash table entry */
