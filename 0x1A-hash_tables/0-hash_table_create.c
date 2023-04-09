@@ -1,33 +1,27 @@
-#include <main.h>
+#include "hash_tables.h"
 
-typedef struct {
-    /* define the structure of a hash table entry */
-    /* e.g. a key-value pair and a pointer to the next entry */
-} hash_entry_t;
-
-typedef struct {
-    unsigned long int size; /* size of the array */
-    hash_entry_t **buckets; /* array of pointers to hash entries */
-} hash_table_t;
-
-/* hash function that maps a string key to an index in the array */
-unsigned long int hash_function(const char *key, unsigned long int size)
-{
-    /* implement a suitable hash function */
-    /* e.g. the djb2 algorithm by Dan Bernstein */
-}
-
+/**
+ * hash_table_create - creates a hash table
+ * @size: size of the array
+ *
+ * Return: pointer to the newly created hash table
+ */
 hash_table_t *hash_table_create(unsigned long int size)
 {
-    hash_table_t *table = (hash_table_t *) malloc(sizeof(hash_table_t));
-    if (table == NULL) {
-        return NULL; /* out of memory */
-    }
-    table->size = size;
-    table->buckets = (hash_entry_t **) calloc(size, sizeof(hash_entry_t *));
-    if (table->buckets == NULL) {
-        free(table);
-        return NULL; /* out of memory */
-    }
-    return table;
+	hash_table_t *hash_table;
+	unsigned long int i;
+
+	hash_table = malloc(sizeof(hash_table_t));
+	if (hash_table == NULL)
+		return (NULL);
+	hash_table->size = size;
+	hash_table->array = malloc(size * sizeof(hash_node_t *));
+	if (hash_table->array == NULL)
+	{
+		free(hash_table);
+		return (NULL);
+	}
+	for (i = 0; i < size; i++)
+		hash_table->array[i] = NULL;
+	return (hash_table);
 }
